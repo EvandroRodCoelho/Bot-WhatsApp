@@ -10,6 +10,12 @@
   "author": "Evandro Rodrigues Coelho <evandrorodcoelho@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "eslint": "^8.38.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
     "tsx": "^3.12.6",
     "typescript": "^5.0.4"
   }
