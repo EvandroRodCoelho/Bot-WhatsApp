@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsx ./src/main.ts"
   },
   "author": "Evandro Rodrigues Coelho <evandrorodcoelho@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "tsx": "^3.12.6",
     "typescript": "^5.0.4"
   }
 }
