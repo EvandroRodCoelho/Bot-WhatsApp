@@ -1,63 +1,25 @@
-import {Whatsapp , create} from "venom-bot";
-import axios from 'axios';
-import { Configuration, OpenAIApi } from "openai";
-
-const API_URL = 'https://api.openai.com/v1/chat/completions';
+import { Whatsapp, create } from "venom-bot";
+import {chatGPT} from "./services/chatGpt"
 
 
-const configuration = new Configuration({
-  apiKey: API_KEY
-});
-const openai = new OpenAIApi(configuration);
+create('sales').then((client) => start(client))
+  .catch((error)=> console.log(error));
 
-async function chatGPT() {
- const response = openai.createEdit({
-    model: "text-davinci-edit-001",
-    input: "O que é Css?",
-   instruction: "Em português",
+function start(client: Whatsapp) {
+  console.log('Bot iniciado!');
 
+  client.onMessage(async (message) => {
+    const { body, from } = message;
+    console.log(`Mensagem recebida de ${from}: ${body}`);
+
+
+    const response = await chatGPT(body);
+
+    try {
+      await client.sendText(from, response);
+      console.log(`Mensagem enviada para ${from}: ${response}`);
+    } catch (error:any) {
+      console.error(`Erro ao enviar mensagem para ${from}: ${error.message}`);
+    }
   });
-
-  const choices = (await response).data.choices;
-  const answer = choices[0].text;
-  return answer;
 }
-
-chatGPT().then((answer) => {
-  console.log(answer);
-});
-
-
-
-// let pergunta: boolean = false;
-
-// create('sales').then((client) => start(client));
-
-//  function  start(client:Whatsapp) {
-//      client.onMessage((message) => {
-        
-         
-//          if (pergunta) {
-//             client.sendText(message.from, "Resposta")
-//                 .then(_ => pergunta == false)
-//                  .catch(err => console.error(err))
-//              return;
-//          }
-//          if (message.body == "0") {
-//              return;
-//          }
-         
-//         if(message.body == "1"){
-//             client.sendText(message.from, "Faça sua pergunta")
-//                 .then(result => pergunta == true)
-//                 .catch(err => console.error(err))
-//              return;
-//          }
-
-//          client.sendText(message.from, "Olá sou a inteligencia artificial, veja as opções:\n 0-Sair \n1-fazer uma pergunta")
-//              .then(result => console.log(message.body))
-//              .catch(err => console.error(err))
-                   
-//     })
-// }  
-
